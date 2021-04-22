@@ -1,0 +1,16 @@
+[build-system]
+build-backend = "poetry.masonry.api"
+requires = ["poetry>=0.12"]
+
+[tool]
+[tool.poetry]
+authors = ["Your Name <you@example.com>"]
+description = ""
+name = "devman-bot"
+version = "0.1.0"
+[tool.poetry.dependencies]
+python = "^3.8"
+python-telegram-bot = "^12.4"
+requests = "^2.23"
+print = "^1.3.0"
+[tool.poetry.dev-dependencies]
