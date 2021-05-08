@@ -1,1 +1,3 @@
 bot_log.log*
+poetry.lock
+pyproject.toml
