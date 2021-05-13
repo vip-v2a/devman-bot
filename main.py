@@ -4,52 +4,58 @@ import telegram
 import time
 from bot_logger import logger
 
-TOKEN_DEVMAN = os.environ['TOKEN_DEVMAN']
-TOKEN_BOT = os.environ['TOKEN_BOT']
-CHAT_ID = os.environ['CHAT_ID_TELEGRAM']
+DEVMAN_TOKEN = os.environ['DEVMAN_TOKEN']
+BOT_TOKEN = os.environ['BOT_TOKEN']
+CHAT_ID = os.environ['TELEGRAM_CHAT_ID']
 TIMEOUT = 91
 SLEEP_PERIOD = 60 * 10
 
-url = 'https://dvmn.org/api/long_polling/'
-headers = {
-    'Authorization': TOKEN_DEVMAN
+API_URL = 'https://dvmn.org/api/long_polling/'
+HEADERS = {
+    'Authorization': DEVMAN_TOKEN
 }
-
-bot = telegram.Bot(token=TOKEN_BOT)
 
 
 def main():
+    bot = telegram.Bot(token=BOT_TOKEN)
+
     last_timestamp = None
     counter_connection_error = 0
 
     while True:
         try:
             response = requests.get(
-                url,
-                headers=headers,
+                API_URL,
+                headers=HEADERS,
                 timeout=TIMEOUT,
                 params={'timestamp': last_timestamp}
                 )
 
             devman_checking = response.json()
-            current_status = devman_checking['status']
+            response_status = devman_checking['status']
 
-            if current_status == 'timeout':
+            if response_status == 'timeout':
                 last_timestamp = devman_checking['timestamp_to_request']
 
-            if current_status == 'found':
-                title = devman_checking['new_attempts'][0]['lesson_title']
-                lesson_url = f"https://dvmn.org{devman_checking['new_attempts'][0]['lesson_url']}"
+            if response_status == 'found':
                 last_timestamp = devman_checking['last_attempt_timestamp']
-                text_result = 'К сожалению, в работе нашлись ошибки'
+                checking_params, *__ = devman_checking['new_attempts']
 
-                if not devman_checking['new_attempts'][0]['is_negative']:
-                    text_result = 'Преподавателю всё понравилось, можно приступать к следующему уроку'
+                title = checking_params['lesson_title']
+                lesson_url = checking_params['lesson_url']
+                checking_status_is_negative = checking_params['is_negative']
+
+                lesson_url = f"https://dvmn.org{lesson_url}"
+                
+                result_text = 'Преподавателю всё понравилось, можно приступать к следующему уроку'
+                if checking_status_is_negative:
+                    result_text = 'К сожалению, в работе нашлись ошибки'
+                
                 bot.send_message(
                     chat_id=CHAT_ID,
-                    text=f"У Вас проверили работу '{title}'\n{lesson_url}\n\n{text_result}"
+                    text=f"У Вас проверили работу '{title}'\n{lesson_url}\n\n{result_text}"
                     )
-
+                
         except requests.exceptions.ReadTimeout:
             logger.info('Нет ответа за TIMEOUT')
         except requests.exceptions.ConnectionError:
