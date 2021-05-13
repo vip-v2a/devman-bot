@@ -18,6 +18,7 @@ HEADERS = {
 
 def main():
     bot = telegram.Bot(token=BOT_TOKEN)
+    logger.info('Бот запущен')
 
     last_timestamp = None
     counter_connection_error = 0
