@@ -18,27 +18,27 @@ You need install `requirements.txt`
 pip install -r requirements.txt
 ```
 
+## Features
+
+- Repository has `.Procfile` to deploy on Heroku
+- Logs are printed into chat with bot
+
 ## Running the tests
 
-To test bot you need to submit your homework for review and then return it from the review.
-You show next message from bot:
+To test bot you need to submit your homework on devman website for review and then return it from the review.
+For example, you show next message from bot:
 ![](https://github.com/vip-v2a/devman-bot/blob/1a6fcefe5e4b6d95b49381ca7b3f4674679a0363/ext/fast_test.png)
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+To deploy on [Heroku](https://heroku.com/): 
+- create a new app on European server
+- open 'Deploy' tab on the top menu
+- connect to your github profile
+- select your bot repository
+- choose a branch to deploy 'master' 
+- press 'Deploy Branch'
+- waiting 'Your app was successfully deployed'
+- go to 'Recources' tab
+- check worker is ON (if need, edit dino formation -> then switch ON dino app -> confirm)
+-
