@@ -1,8 +1,9 @@
 import os
 import requests
 import telegram
+import logging
 import time
-from bot_logger import logger
+from bot_logger import MyLogsHandler
 
 DEVMAN_TOKEN = os.environ['DEVMAN_TOKEN']
 BOT_TOKEN = os.environ['BOT_TOKEN']
@@ -18,20 +19,26 @@ HEADERS = {
 
 def main():
     bot = telegram.Bot(token=BOT_TOKEN)
-    logger.info('Бот запущен')
-
+    
     last_timestamp = None
     counter_connection_error = 0
 
+    logger = logging.getLogger("bot logger")
+    logger.setLevel(logging.INFO)
+    logger.addHandler(MyLogsHandler(bot_token=BOT_TOKEN, chat_id=CHAT_ID))
+
+    logger.info("Бот запущен")
+    
     while True:
         try:
+            time.sleep(5)
             response = requests.get(
                 API_URL,
                 headers=HEADERS,
                 timeout=TIMEOUT,
                 params={'timestamp': last_timestamp}
                 )
-
+            
             devman_checking = response.json()
             response_status = devman_checking['status']
 
@@ -50,8 +57,8 @@ def main():
                 
                 result_text = 'Преподавателю всё понравилось, можно приступать к следующему уроку'
                 if checking_status_is_negative:
-                    result_text = 'К сожалению, в работе нашлись ошибки'
-                
+                    result_text = 'К сожалению, в работе нашлись ошибки'             
+
                 bot.send_message(
                     chat_id=CHAT_ID,
                     text=f"У Вас проверили работу '{title}'\n{lesson_url}\n\n{result_text}"
@@ -67,6 +74,8 @@ def main():
                 logger.info('Несколько неудачных подключений подряд. Ждем 10 минут')
                 time.sleep(SLEEP_PERIOD)
                 counter_connection_error = 0
+        except Exception as err:
+            logger.error(err, exc_info=True)
 
 if __name__ == '__main__':
     main()
