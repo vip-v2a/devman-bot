@@ -42,4 +42,4 @@ To deploy on [Heroku](https://heroku.com/):
 - waiting 'Your app was successfully deployed'
 - go to 'Recources' tab
 - check worker is ON (if need, edit dino formation -> then switch ON dino app -> confirm)
--
+- drink a cup of tea
