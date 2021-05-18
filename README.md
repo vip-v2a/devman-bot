@@ -11,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 You need create environment variables:
 - `BOT_TOKEN` from @Bot_father
 - `DEVMAN_TOKEN` from [devman.org](https://devman.org)
-- `CHAT_ID` from @userinfobot (type command: "/start")
+- `TELEGRAM_CHAT_ID` from @userinfobot (type command: "/start")
 
 You need install `requirements.txt`
 ```    
@@ -33,6 +33,7 @@ For example, you show next message from bot:
 
 To deploy on [Heroku](https://heroku.com/): 
 - create a new app on European server
+- create Reveal Config Vars from 'Settings' tab:`BOT_TOKEN`, `DEVMAN_TOKEN`, `TELEGRAM_CHAT_ID` 
 - open 'Deploy' tab on the top menu
 - connect to your github profile
 - select your bot repository
