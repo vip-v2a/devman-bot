@@ -31,7 +31,6 @@ def main():
     
     while True:
         try:
-            time.sleep(5)
             response = requests.get(
                 API_URL,
                 headers=HEADERS,
