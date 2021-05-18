@@ -22,7 +22,7 @@ pip install -r requirements.txt
 
 To test bot you need to submit your homework for review and then return it from the review.
 You show next message from bot:
-![](https://raw.githubusercontent.com/vip-v2a/devman-bot/blob/master/ext/fast_test.png)
+![](https://github.com/vip-v2a/devman-bot/blob/1a6fcefe5e4b6d95b49381ca7b3f4674679a0363/ext/fast_test.png)
 ### Break down into end to end tests
 
 Explain what these tests test and why
