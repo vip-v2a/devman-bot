@@ -31,7 +31,6 @@ def main():
     
     while True:
         try:
-            1/0
             response = requests.get(
                 API_URL,
                 headers=HEADERS,
