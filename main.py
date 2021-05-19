@@ -74,8 +74,8 @@ def main():
                 logger.info('Несколько неудачных подключений подряд. Ждем 10 минут')
                 time.sleep(SLEEP_PERIOD)
                 counter_connection_error = 0
-        except Exception:
-            logging.exception()
+        except Exception as err:
+            logger.exception(err)
 
 if __name__ == '__main__':
     main()
