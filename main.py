@@ -31,6 +31,7 @@ def main():
     
     while True:
         try:
+            1/0
             response = requests.get(
                 API_URL,
                 headers=HEADERS,
@@ -73,8 +74,8 @@ def main():
                 logger.info('Несколько неудачных подключений подряд. Ждем 10 минут')
                 time.sleep(SLEEP_PERIOD)
                 counter_connection_error = 0
-        except Exception as err:
-            logger.error(err, exc_info=True)
+        except Exception:
+            logging.exception()
 
 if __name__ == '__main__':
     main()

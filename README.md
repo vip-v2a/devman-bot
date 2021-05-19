@@ -1,4 +1,4 @@
-# Devman checking telegrambot
+# Devman's checking telegrambot
 
 The bot notifies you about checking your homework on the [devman](https://devman.org) website
 
