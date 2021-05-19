@@ -31,7 +31,9 @@ def main():
     
     while True:
         try:
+
             time.sleep(5)
+            1/0            
             response = requests.get(
                 API_URL,
                 headers=HEADERS,
@@ -75,7 +77,7 @@ def main():
                 time.sleep(SLEEP_PERIOD)
                 counter_connection_error = 0
         except Exception as err:
-            logger.error(err, exc_info=True)
+            logger.exception(err)
 
 if __name__ == '__main__':
     main()
